@@ -1,26 +1,26 @@
 <template>
-  <div id="show-rooms">
-      <h2>Available Rooms</h2>
-      <div v-for="room in rooms" class="single-room">
-          {{ room.title }}
-      </div>
-  </div>
+<div id="show-rooms" class="container">
+    <h2>Available Rooms</h2>
+    <div v-for="room in rooms" class="single-room">
+        {{ room.title }}
+    </div>
+</div>
 </template>
 
 <script>
 export default {
     data() {
         return {
-            rooms:[]
+            rooms: []
         }
     },
     methods: {
-        
+
     },
     created() {
-        this.$http.get('https://jsonplaceholder.typicode.com/posts').then(function(){
-            console.log(data);
-            this.rooms = data.body.slice(0,10);
+        this.$http.get('https://127.0.0.1:8000/api/r').then(res => {
+            console.log(this.data);
+            this.rooms = res.body.slice(0, 10);
         })
     },
 

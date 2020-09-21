@@ -4,7 +4,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import VueResource from 'vue-resource'
 
-Vue.use(VueResource)
+Vue.use(VueResource);
 
 new Vue({
   el: '#app',
