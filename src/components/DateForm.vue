@@ -28,10 +28,10 @@ export default {
                 checkin: this.checkin,
                 checkout: this.checkout
             }
-            this.$http.post('http://127.0.0.1:8000/api/getDates', postData, {
+            this.$http.post('https://127.0.0.1:8000/api/getDates', postData, {
                 emulateJSON: true
             }).then(function (data) {
-                console.log(this.data);
+                console.log(data);
             })
         }
 
