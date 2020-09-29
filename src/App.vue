@@ -2,7 +2,6 @@
 <div>
     <app-header></app-header>
     <DateForm></DateForm>
-    <GetRooms></GetRooms>
 </div>
 </template>
 
