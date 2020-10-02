@@ -1,7 +1,7 @@
 <template>
 <div id="add-form">
     <div class="container">
-        <h3 class="mt-3">Odaberite datume: </h3>
+        <h3 class="mt-3">Odaberite datume prijave i odjave: </h3>
         <form class="mb-3">
             <label>Check in:</label>
             <input type="date" class="input mr-2" name="checkin" v-model="dates.checkin">
@@ -11,7 +11,7 @@
         </form>
         <div class="row">
         <div v-for="room in rooms" id="rooms" class="card rooms mr-3" v-on:click="show = !show" v-bind:id="room.id" @click="sendRoom">
-            
+            <img class="card-img-top" v-bind:src="'http://127.0.0.1:8000/images/thumbnails/' + room.thumbnail">
             <h5 class="card-title">{{ room.title }}</h5>
             <p class="card-text">{{ room.quantity }}</p>
             
@@ -94,6 +94,7 @@ export default {
                     this.$http.post('https://127.0.0.1:8000/api/postPersonalData', personaldata).then(function (data){
                         console.log(data);
                         this.success_msg = 'Uspješno ste rezervirali!';
+                        this.personaldata.email = data.body.email;
                     })
             }
 
@@ -135,6 +136,7 @@ export default {
 }
 .card{
     padding: 5px;
+    width: 18rem;
 }
 
 .card-img-top {
