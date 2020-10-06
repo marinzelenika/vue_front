@@ -10,7 +10,7 @@
             <button @click.prevent="sendPost()" class="btn btn-primary ml-2">Provjeri</button>
         </form>
         <div class="row">
-        <div v-for="room in rooms" id="rooms" class="card rooms mr-3" v-on:click="show = !show" v-bind:id="room.id" @click="sendRoom">
+        <div v-for="room in rooms"  class="card rooms mr-3" v-on:click="show = !show" v-bind:id="room.id" @click="sendRoom(room.id)">
             <img class="card-img-top" v-bind:src="'http://127.0.0.1:8000/images/thumbnails/' + room.thumbnail">
             <h5 class="card-title">{{ room.title }}</h5>
             <p class="card-text">{{ room.quantity }}</p>
@@ -74,12 +74,13 @@ export default {
                 this.rooms = data.body;
             })
         },
-        sendRoom(event) {
+        sendRoom(id) {
             var postRooms = {
-                roomid: event.target.id
+                roomid: id
             }
             this.$http.post('https://127.0.0.1:8000/api/getRoom', postRooms).then(function (event) {
-                console.log(postRooms);
+                console.log(id);
+                this.roomid = id;
             })
         },
             checkForm: function (e) {
@@ -88,7 +89,8 @@ export default {
                     telephone: this.personaldata.telephone,
                     name: this.personaldata.name,
                     checkin: this.dates.checkin,
-                    checkout: this.dates.checkout
+                    checkout: this.dates.checkout,
+                    roomid: this.roomid
                 }
                 if (this.personaldata.email && this.personaldata.telephone && this.personaldata.name) {
                     this.$http.post('https://127.0.0.1:8000/api/postPersonalData', personaldata).then(function (data){
