@@ -13,7 +13,7 @@
         <div v-for="room in rooms"  class="card rooms mr-3" v-on:click="show = !show" v-bind:id="room.id" @click="sendRoom(room.id)">
             <img class="card-img-top" v-bind:src="'http://127.0.0.1:8000/images/thumbnails/' + room.thumbnail">
             <h5 class="card-title">{{ room.title }}</h5>
-            <p class="card-text">{{ room.quantity }}</p>
+            <p class="card-text">{{ room.description }}</p>
             
         </div>
         </div>
@@ -69,10 +69,26 @@ export default {
                 checkin: this.dates.checkin,
                 checkout: this.dates.checkout
             }
+          
+            this.errors = [];
+
+      if (!this.dates.checkin) {
+        this.errors.push('Datum prijave obavezan');
+      }
+      if (!this.dates.checkout) {
+        this.errors.push('Datum odjave obavezan');
+      }
+      if (this.dates.checkout < this.dates.checkin){
+          this.errors.push('Drugi datum manji od prvog!');
+      }
+
+        else if (this.dates.checkin && this.dates.checkout){
             this.$http.post('https://127.0.0.1:8000/api/getDates', postData).then(function (data) {
                 console.log(data);
                 this.rooms = data.body;
             })
+            }
+     
         },
         sendRoom(id) {
             var postRooms = {
